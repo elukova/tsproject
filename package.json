@@ -1,16 +1,12 @@
 {
   "name": "tsproject",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc src/index.ts --outDir dist --target es2015",
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "http-server -p 3000"
   },
-  "author": "e_l_e_n_24@mail.ru",
-  "license": "ISC",
   "devDependencies": {
+    "http-server": "^14.1.0",
     "typescript": "^4.5.5"
   }
 }
