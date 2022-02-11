@@ -1,9 +1,13 @@
 import { renderBlock } from './lib.js'
-
-export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Date) {
+export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Date) : void {
     arrivalDate = arrivalDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1 )
     departureDate = departureDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 3)
-    lastDayNextMonth : Date = new Date(new Date().getFullYear(), new Date().getMonth() + 2, 0)
+    const lastDayNextMonthDate : Date = new Date(new Date().getFullYear(), new Date().getMonth() + 2, 0)
+    const dateToString = (date : Date) : string => date.getFullYear()+ '-'+('0'+date.getMonth()+1).slice(-2)+'-'+('0' + date.getDate()).slice(-2)
+    const now : string = dateToString (new Date())
+    const arrival : string = dateToString (arrivalDate)
+    const departure : string = dateToString (departureDate)
+    const lastDayNextMonth : string = dateToString (lastDayNextMonthDate)
     renderBlock(
         'search-form-block',
         `
@@ -23,11 +27,11 @@ export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Dat
         <div class="row">
           <div>
             <label for="check-in-date">Дата заезда</label>
-            <input id="check-in-date" type="date" value="2021-05-11" min="2021-05-11" max="2021-06-30" name="checkin" />
+            <input id="check-in-date" type="date" value="${arrival}" min="${now}" max="${lastDayNextMonth}" name="checkin" />
           </div>
           <div>
             <label for="check-out-date">Дата выезда</label>
-            <input id="check-out-date" type="date" value="2021-05-13" min="2021-05-11" max="2021-06-30" name="checkout" />
+            <input id="check-out-date" type="date" value="${departure}" min="${now}" max="${lastDayNextMonth}" name="checkout" />
           </div>
           <div>
             <label for="max-price">Макс. цена суток</label>
