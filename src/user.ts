@@ -3,7 +3,7 @@ import { renderBlock } from './lib.js'
 export function renderUserBlock (
     userName: string, 
     userAvatar: string, 
-    favoriteItemsAmount: number
+    favoriteItemsAmount?: number
 ) : void {
     const favoritesCaption = favoriteItemsAmount ? favoriteItemsAmount : 'ничего нет'
     const hasFavoriteItems = favoriteItemsAmount ? true : false
@@ -12,7 +12,7 @@ export function renderUserBlock (
         'user-block',
         `
     <div class="header-container">
-      <img class="avatar" src=${userAvatar} alt="Wade Warren" />
+      <img class="avatar" src=${userAvatar} alt=${userName} />
       <div class="info">
           <p class="name">${userName}</p>
           <p class="fav">

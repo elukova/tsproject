@@ -1,10 +1,60 @@
 import { renderBlock } from './lib.js'
 
+interface SearchFormData {
+  city: string
+  coordinates?: string
+  checkInDate: string
+  checkOutDate: string
+  price: number
+  provider?: boolean
+}
+
+interface Place {
+  city: string
+}
+
+interface PlaceCallback {
+  (error?: Error, place?: Place): void
+}
+
+const placeCallback: PlaceCallback = (error, place) => {
+    if (error == null && place != null) {
+        console.log('success!');
+    } else {
+        console.error('Fail', error);
+    } 
+}
+
+function searchRequest (place: Place) {
+    setTimeout(()=>{console.log('inside timeout')}, 3000)
+    const chance = Math.floor(Math.random() * 2)
+    if (chance) {
+        return Promise.resolve(place)
+    } else {
+        return Promise.reject(Error)
+    }
+}
+
+
+function search (place: Place, callback: PlaceCallback) : void {
+    searchRequest(place)
+        .then((place) => {
+            callback(null, place)
+        })
+        .catch((error) =>{
+            callback(error)
+        })
+    console.log('fff');
+}
+
+const testPlace: Place = {city: 'SPb'}
+search (testPlace, placeCallback)
+
 export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Date) : void {
     arrivalDate = arrivalDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1 )
     departureDate = departureDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 3)
     const lastDayNextMonthDate : Date = new Date(new Date().getFullYear(), new Date().getMonth() + 2, 0)
-    const dateToString = (date : Date) : string => date.getFullYear()+ '-'+('0'+date.getMonth()).slice(-2)+'-'+('0' + date.getDate()).slice(-2)
+    const dateToString = (date : Date) : string => date.getFullYear()+ '-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+('0' + date.getDate()).slice(-2)
     const now : string = dateToString (new Date())
     const arrival : string = dateToString (arrivalDate)
     const departure : string = dateToString (departureDate)
@@ -20,10 +70,10 @@ export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Dat
             <input id="city" type="text" disabled value="Санкт-Петербург" />
             <input type="hidden" disabled value="59.9386,30.3141" />
           </div>
-          <!--<div class="providers">
+          <div class="providers">
             <label><input type="checkbox" name="provider" value="homy" checked /> Homy</label>
             <label><input type="checkbox" name="provider" value="flat-rent" checked /> FlatRent</label>
-          </div>--!>
+          </div>
         </div>
         <div class="row">
           <div>
