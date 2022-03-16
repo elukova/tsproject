@@ -1,25 +1,16 @@
-import { Book } from "./book.js";
-import { books } from "./book-collection.js";
 
-function findSuitableBook(
-  genre: string,
-  pagesLimit: number,
-  multipleRecommendations = true
-): Book | Book[] {
-  const findAlgoritm = (book: Book) => {
-    return book.genre === genre && book.pageAmount <= pagesLimit;
-  };
+import { renderSearchFormBlock } from './search-form.js'
+import { renderSearchStubBlock } from './search-results.js'
+import { renderUserBlock } from './user.js'
+import { renderToast } from './lib.js'
 
-  if (multipleRecommendations) {
-    return books.filter(findAlgoritm);
-  } else {
-    return books.find(findAlgoritm);
-  }
-}
+window.addEventListener('DOMContentLoaded', () => {
+    renderUserBlock('Wade Warren', '/img/avatar.png', 0)
+    renderSearchFormBlock()
+    renderSearchStubBlock()
+    renderToast(
+        {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
+        {name: 'Понял', handler: () => {console.log('Уведомление закрыто')}}
+    )
+})
 
-const recommendedBook = findSuitableBook("fantasy", 1000);
-if (recommendedBook instanceof Book) {
-  console.log(recommendedBook.name);
-} else {
-  console.log(recommendedBook[0].name);
-}

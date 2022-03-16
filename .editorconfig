@@ -7,8 +7,10 @@ insert_final_newline = true
 
 [*.{js,ts}]
 indent_style = space
-indent_size = 2
+
+indent_size = 4
 
 [{package.json,tsconfig*.json}]
 indent_style = space
-indent_size = 2
+indent_size = 4
+
