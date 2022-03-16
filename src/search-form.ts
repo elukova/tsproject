@@ -1,3 +1,4 @@
+
 import { renderBlock } from './lib.js'
 export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Date) : void {
     arrivalDate = arrivalDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1 )
