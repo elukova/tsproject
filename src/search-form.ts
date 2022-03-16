@@ -1,10 +1,10 @@
-import { renderBlock } from './lib.js'
 
+import { renderBlock } from './lib.js'
 export function renderSearchFormBlock (arrivalDate ?: Date, departureDate ?: Date) : void {
     arrivalDate = arrivalDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1 )
     departureDate = departureDate || new Date (new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 3)
     const lastDayNextMonthDate : Date = new Date(new Date().getFullYear(), new Date().getMonth() + 2, 0)
-    const dateToString = (date : Date) : string => date.getFullYear()+ '-'+('0'+date.getMonth()).slice(-2)+'-'+('0' + date.getDate()).slice(-2)
+    const dateToString = (date : Date) : string => date.getFullYear()+ '-'+('0'+date.getMonth()+1).slice(-2)+'-'+('0' + date.getDate()).slice(-2)
     const now : string = dateToString (new Date())
     const arrival : string = dateToString (arrivalDate)
     const departure : string = dateToString (departureDate)
